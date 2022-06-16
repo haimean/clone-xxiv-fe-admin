@@ -9,17 +9,17 @@
           :message="errors[0]"
           label="Name"
         >
-          <b-input v-model="brand.name" placeholder="name">Name</b-input>
+          <b-input v-model="data.name" placeholder="name">Name</b-input>
         </b-field>
       </ValidationProvider>
       <b-field label="Description">
         <b-input
           placeholder="description"
-          v-model="brand.description"
+          v-model="data.description"
         ></b-input>
       </b-field>
       <b-field label="Image">
-        <b-input v-model="brand.image_uuid"></b-input
+        <b-input v-model="data.image_uuid"></b-input
       ></b-field>
       <b-button
         class="is-info"
@@ -38,7 +38,7 @@ export default {
     ValidationObserver,
     ValidationProvider,
   },
-  props: { title: String, brand: Object, button: String },
+  props: { title: String, data: Object, button: String },
   methods: {
     confirmUpdate() {
       this.$buefy.dialog.confirm({
@@ -46,7 +46,7 @@ export default {
         confirmText: "Ok",
         cancelText: "Cancel",
         type: "is-info",
-        onConfirm: () => this.$emit("update", this.brand),
+        onConfirm: () => this.$emit("update", this.data),
       });
     },
   },

@@ -1,3 +1,3 @@
 <template>
-  <BrandList/>
+  <FragranceList/>
 </template>

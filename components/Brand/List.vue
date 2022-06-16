@@ -75,7 +75,7 @@
             button="Update"
             title="Update Brand"
             :brand="brand"
-            @update="updateBrand(brand)"
+            @update="updateBrand"
           />
         </div>
       </div>

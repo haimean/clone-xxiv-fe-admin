@@ -9,49 +9,26 @@
       <p class="text-[30px] font-medium text-[#50403B] font-sans">Brand</p>
     </div>
     <div class="ml-auto mr-4">
-      <b-dropdown aria-role="list" is-right>
-        <template #trigger="{ active }">
-          <b-button
-            :label="user.email"
-            type="is-light"
-            :icon-right="active ? 'menu-up' : 'menu-down'"
-          />
-        </template>
-        <b-dropdown-item aria-role="listitem" @click="logout"
-          >ログアウト</b-dropdown-item
-        >
-      </b-dropdown>
+      <b-button aria-role="listitem" type="is-light" @click="logout"
+        >Logout</b-button
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      user: this.$auth.user,
-        items: [
-        {
-          path: "/",
-          icon: "",
-          name: "Home",
-        },
-        {
-          path: "/brand",
-          icon: "",
-          name: "Brand",
-        },
-      ],
-    };
-  }, component:{
-      name(){
-        items.forEach(item => {
-          $route.path.includes(item.path) ? item.name : 'unactive'
-        });
-      }
+  props: {
+    items: Array,
+  },
+  component: {
+    name() {
+      items.forEach((item) => {
+        $route.path.includes(item.path) ? item.name : "unactive";
+      });
     },
+  },
   methods: {
-   
     async logout() {
       try {
         await this.$auth.logout("local");

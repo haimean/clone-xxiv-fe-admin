@@ -1,10 +1,10 @@
 <template>
   <div class="flex">
-    <LayoutSidebar />
+    <LayoutSidebar :items="items" />
     <div class="w-10/12">
       <div class="container">
         <div class="h-screen ml-6 mt-9">
-          <LayoutNavbar />
+          <LayoutNavbar :items="items" />
           <div class="mt-9">
             <Nuxt />
           </div>
@@ -18,7 +18,25 @@
 export default {
   name: "DefaultLayout",
   data() {
-    return {};
+    return {
+      items: [
+        {
+          path: "/",
+          icon: "",
+          name: "Home",
+        },
+        {
+          path: "/brand",
+          icon: "",
+          name: "Brand",
+        },
+        {
+          path: "/fragrance",
+          icon: "",
+          name: "Fragrance",
+        },
+      ],
+    };
   },
 };
 </script>
