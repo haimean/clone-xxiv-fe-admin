@@ -74,7 +74,6 @@ export default {
   },
   mounted() {
     this.getBrands();
-    console.log(this.listBrands);
   },
   watch: {
     page() {

@@ -6,14 +6,14 @@
     <div class="rounded-[12px] min-h-[500px] mt-5 bg-[#FFFFFF] font-sans">
       <div class="pt-[28px] is-flex is-justify-content-space-between">
         <div class="ml-7">
-          <h1 class="title is-3">List Fragrance</h1>
+          <h1 class="title is-3">List Capacities</h1>
         </div>
       </div>
       <hr class="mt-[12px] mb-[33px] w-full" />
 
-      <section class="w-[1220px] ml-[37px]">
+      <section class="mx-[10rem]">
         <b-table
-          :data="listFragrances"
+          :data="listCapacities"
           hoverable
           scrollable
           :paginated="true"
@@ -32,23 +32,11 @@
             </div>
           </b-table-column>
 
-          <b-table-column field="name" label="Name" v-slot="props">
+          <b-table-column field="name" label="Name" v-slot="props" centered>
             <div class="w-[80px]">{{ props.row.name }}</div>
           </b-table-column>
-
-          <b-table-column
-            field="description"
-            label="Description"
-            sortable
-            v-slot="props"
-          >
-            <div class="w-[120px]">{{ props.row.description }}</div>
-          </b-table-column>
-          <b-table-column field="imange" label="Image" sortable v-slot="props">
-            <div class="w-[80px]">{{ props.row.image_uuid }}</div>
-          </b-table-column>
           <b-table-column field="edit" v-slot="props" centered>
-            <div class="w-[50px]">
+            <div class="w-[30px]">
               <b-button
                 size="is-small"
                 class="btn-update"
@@ -61,13 +49,12 @@
             </div>
           </b-table-column>
           <b-table-column field="delete" v-slot="props" centered>
-            <div class="w-[50px]">
+            <div class="w-[30px]">
               <b-button
+                type="is-danger"
                 size="is-small"
                 class="px-5"
-                type="is-danger"
                 tag="button"
-                ty
                 @click="confirmDelete(props.row.id)"
                 >Delete</b-button
               >
@@ -82,11 +69,11 @@
     <b-modal v-model="isCardUpdateActive" :width="640" scroll="keep">
       <div class="card">
         <div class="card-content">
-          <FragranceCard
+          <CapacityCard
             button="Update"
             title="Update Fragrance"
-            :data="fragrance"
-            @update="updateFragrance"
+            :data="capacity"
+            @update="updateCapacity"
           />
         </div>
       </div>
@@ -95,11 +82,11 @@
     <b-modal v-model="isCardCreateActive" :width="640" scroll="keep">
       <div class="card">
         <div class="card-content">
-          <FragranceCard
+          <CapacityCard
             button="Create"
             title="Create Fragrance"
-            :data="fragrance"
-            @update="createFragrance(fragrance)"
+            :data="capacity"
+            @update="createCapacity"
           />
         </div>
       </div>
@@ -112,25 +99,23 @@ export default {
     return {
       isCardUpdateActive: false,
       isCardCreateActive: false,
-      listFragrances: [],
-      fragrance: {
+      listCapacities: [],
+      capacity: {
         id: null,
         name: "",
-        description: "",
-        image_uuid: "",
       },
     };
   },
   mounted() {
-    this.getFragrances();
+    this.getCapacities();
   },
   methods: {
-    async getFragrances() {
+    async getCapacities() {
       try {
-        await this.$api.fragrance
+        await this.$api.capacity
           .getAll()
           .then((response) => {
-            this.listFragrances = response.data;
+            this.listCapacities = response.data;
           })
           .catch((e) => {
             Object.keys(err.response.data.errors).forEach((key) => {
@@ -148,18 +133,18 @@ export default {
     },
     confirmDelete(id) {
       this.$buefy.dialog.confirm({
-        message: "Do you want delete Fragrance",
+        message: "Do you want delete Capacity",
         confirmText: "Ok",
         cancelText: "Cancel",
         type: "is-danger",
-        onConfirm: () => this.deleteFragrance(id),
+        onConfirm: () => this.deleteCapacity(id),
       });
     },
-    async deleteFragrance(id) {
+    async deleteCapacity(id) {
       await this.$api.fragrance
         .delete(id)
         .then(
-          this.getFragrances(),
+          this.getCapacities(),
           this.$buefy.toast.open({
             message: `Delete success`,
             type: "is-success",
@@ -176,21 +161,16 @@ export default {
     },
 
     openCardUpdate(data) {
-      this.fragrance = data;
+      this.capacity = data;
       this.isCardUpdateActive = true;
     },
-    async updateFragrance(fragrance) {
-      await this.$api.fragrance
-        .update(
-          fragrance.id,
-          fragrance.name,
-          fragrance.description,
-          fragrance.image_uuid
-        )
+    async updateCapacity(capacity) {
+      await this.$api.capacity
+        .update(capacity.id, capacity.name)
         .then(
           (this.isCardUpdateActive = false),
-          this.resetFragrance(),
-          this.getFragrances(),
+          this.resetCapacity(),
+          this.getCapacities(),
           this.$buefy.toast.open({
             message: `Update success`,
             type: "is-success",
@@ -206,16 +186,16 @@ export default {
         });
     },
     openCardCreate() {
-      this.resetFragrance();
+      this.resetCapacity();
       this.isCardCreateActive = true;
     },
-    async createFragrance(fragrance) {
-      await this.$api.fragrance
-        .create(fragrance.name, fragrance.description, fragrance.image_uuid)
+    async createCapacity(capacity) {
+      await this.$api.capacity
+        .create(capacity.name)
         .then(
           (this.isCardCreateActive = false),
-          this.resetFragrance(),
-          this.getFragrances(),
+          this.resetCapacity(),
+          this.getCapacities(),
           this.$buefy.toast.open({
             message: `Create success`,
             type: "is-info",
@@ -230,22 +210,18 @@ export default {
           });
         });
     },
-    resetFragrance() {
-      this.fragrance.id = null;
-      this.fragrance.name = "";
-      this.fragrance.description = "";
-      this.fragrance.image_uuid = "";
+    resetCapacity() {
+      this.capacity.id = null;
+      this.capacity.name = "";
     },
   },
 };
 </script>
-
 <style>
 .b-table .level {
   justify-content: center;
 }
-.pagination-next,
-.pagination-previous {
+.pagination-next, .pagination-previous{
   display: none;
 }
 </style>

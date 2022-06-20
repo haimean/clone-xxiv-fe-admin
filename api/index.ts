@@ -1,6 +1,7 @@
 import UserApi from "./user";
 import BrandApi from "./brands";
 import FragranceApi from "./fragrances";
+import CapacityApi from "./capacities";
 import { BaseApi } from "~/core/api";
 
 export default class RootApi extends BaseApi {
@@ -8,5 +9,6 @@ export default class RootApi extends BaseApi {
     fragrance: FragranceApi,
     brand: BrandApi,
     user: UserApi,
+    capacity: CapacityApi,
   };
 }

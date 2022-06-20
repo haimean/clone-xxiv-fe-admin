@@ -5,8 +5,8 @@
     >
     <div class="rounded-[12px] min-h-[500px] mt-5 bg-[#FFFFFF] font-sans">
       <div class="pt-[28px] is-flex is-justify-content-space-between">
-        <div class="ml-[32px] text-[16px] font-bold text-[#212121]">
-          <p>List Brand</p>
+        <div class="ml-7">
+          <h1 class="title is-3">List Brand</h1>
         </div>
       </div>
       <hr class="mt-[12px] mb-[33px] w-full" />
@@ -20,10 +20,17 @@
           :per-page="5"
           :current-page="1"
         >
-          <b-table-column centered field="id" label="ID" v-slot="props">
-            <div class="w-[50px]">{{ props.row.id }}</div>
+          <b-table-column
+            centered
+            field="id"
+            label="ID"
+            v-slot="props"
+            class="w-[30px] is-flex is-justify-content-center"
+          >
+            <div class="">
+              <div>{{ props.row.id }}</div>
+            </div>
           </b-table-column>
-
           <b-table-column field="name" label="Name" v-slot="props">
             <div class="w-[80px]">{{ props.row.name }}</div>
           </b-table-column>
@@ -44,6 +51,7 @@
               <b-button
                 size="is-small"
                 class="btn-update"
+                type="is-info"
                 tag="button"
                 @click="openCardUpdate(props.row)"
               >
@@ -57,6 +65,7 @@
                 size="is-small"
                 class="px-5 btn-delete"
                 tag="button"
+                type="is-danger"
                 @click="confirmDelete(props.row.id)"
                 >Delete</b-button
               >
@@ -229,75 +238,12 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-::v-deep .control.has-icons-left .input {
-  border-radius: 20px;
-  font-size: 12px;
-  color: #50403b;
+<style>
+.b-table .level {
+  justify-content: center;
 }
-::v-deep .control.has-icons-left .icon.is-left {
-  height: 35px;
-}
-::v-deep .button.is-small:not(.is-rounded) {
-  border-radius: 3px;
-}
-.btn-update {
-  background-color: #f78720;
-  color: #ffffff;
-  width: 90px;
-  height: 30px;
-}
-.btn-delete {
-  background-color: #ff0000;
-  color: #ffffff;
-  width: 90px;
-  height: 30px;
-}
-::v-deep .pagination-previous,
-::v-deep .pagination-next {
+.pagination-next,
+.pagination-previous {
   display: none;
-}
-::v-deep .b-table .table th {
-  background-color: #73625d;
-  color: #ffffff;
-  height: 56px;
-  font-size: 14px;
-  font-family: Roboto;
-  text-align: center;
-  padding-top: 18px;
-  font-weight: 700;
-  border-bottom-color: #73625d;
-}
-::v-deep.b-table .table td {
-  font-weight: 400;
-  font-size: 14px;
-  color: #50403b;
-  font-family: Roboto;
-  padding-top: 23px;
-  padding-bottom: 13px;
-  border-bottom: 0.5px solid #e8e4e3;
-}
-::v-deep .control.has-icons-left .input {
-  border-radius: 20px;
-  height: 34px;
-  width: 225px;
-  margin-right: 43px;
-}
-::v-deep .pagination-list {
-  margin-top: 40px;
-  margin-bottom: 50px;
-}
-.edit {
-  margin-top: 50px;
-  margin-left: 47px;
-  width: 117px;
-  height: 32px;
-  background-color: #f7c220;
-  border-radius: 5px;
-  color: #ffffff;
-}
-.button.is-medium {
-  font-size: 14px;
 }
 </style>

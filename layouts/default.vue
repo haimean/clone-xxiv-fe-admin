@@ -22,18 +22,20 @@ export default {
       items: [
         {
           path: "/",
-          icon: "",
+
           name: "Home",
         },
         {
           path: "/brand",
-          icon: "",
           name: "Brand",
         },
         {
           path: "/fragrance",
-          icon: "",
           name: "Fragrance",
+        },
+        {
+          path: "/capacity",
+          name: "Capacity",
         },
       ],
     };
