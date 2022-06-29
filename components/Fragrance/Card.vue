@@ -12,12 +12,6 @@
           <b-input v-model="data.name" placeholder="name">Name</b-input>
         </b-field>
       </ValidationProvider>
-      <b-field label="Description">
-        <b-input
-          placeholder="description"
-          v-model="data.description"
-        ></b-input>
-      </b-field>
       <b-field label="Image">
         <b-input v-model="data.image_uuid"></b-input
       ></b-field>

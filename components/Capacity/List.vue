@@ -221,7 +221,8 @@ export default {
 .b-table .level {
   justify-content: center;
 }
-.pagination-next, .pagination-previous{
+.pagination-next,
+.pagination-previous {
   display: none;
 }
 </style>

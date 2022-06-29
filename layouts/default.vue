@@ -37,6 +37,10 @@ export default {
           path: "/capacity",
           name: "Capacity",
         },
+        {
+          path: "/product",
+          name: "Product",
+        },
       ],
     };
   },

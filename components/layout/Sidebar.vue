@@ -16,8 +16,7 @@
           :class="$route.path === item.path ? 'active' : 'unactive'"
           style="width: 220px"
           class="
-            is-flex is-flex-direction-row
-            is-align-content-space-between
+            is-flex is-flex-direction-row is-align-content-space-between
             mb-4
             px-3
             h-10
@@ -28,6 +27,19 @@
           <b-icon icon="chevron-right" size="is-small"></b-icon>
         </div>
       </nuxt-link>
+      <div
+        style="width: 220px"
+        class="
+          unactive
+          is-flex is-flex-direction-row is-align-content-space-between
+          mb-4
+          px-3
+          h-10
+          is-align-items-center
+        "
+      >
+        <span class="logout" style="width: 155px" @click="logout">Logout</span>
+      </div>
       <p class="mt-6 text-sm text-[#ACA299]">
         <span>© 2022 XXIV</span>
       </p>
@@ -40,10 +52,29 @@ export default {
   props: {
     items: Array,
   },
+  methods: {
+    async logout() {
+      try {
+        await this.$auth.logout("local");
+        if (!this.$auth.loggedIn) {
+          this.$router.push("/login");
+        }
+      } catch (e) {
+        this.$buefy.toast.open({
+          message: e,
+          type: "is-danger",
+          duration: 5000,
+        });
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.logout:hover {
+  cursor: pointer;
+}
 .nuxt-link-exact-active {
   font-weight: bold;
   color: #50403b;

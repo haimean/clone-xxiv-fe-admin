@@ -35,15 +35,6 @@
           <b-table-column field="name" label="Name" v-slot="props">
             <div class="w-[80px]">{{ props.row.name }}</div>
           </b-table-column>
-
-          <b-table-column
-            field="description"
-            label="Description"
-            sortable
-            v-slot="props"
-          >
-            <div class="w-[120px]">{{ props.row.description }}</div>
-          </b-table-column>
           <b-table-column field="imange" label="Image" sortable v-slot="props">
             <div class="w-[80px]">{{ props.row.image_uuid }}</div>
           </b-table-column>
@@ -116,7 +107,6 @@ export default {
       fragrance: {
         id: null,
         name: "",
-        description: "",
         image_uuid: "",
       },
     };
@@ -181,12 +171,7 @@ export default {
     },
     async updateFragrance(fragrance) {
       await this.$api.fragrance
-        .update(
-          fragrance.id,
-          fragrance.name,
-          fragrance.description,
-          fragrance.image_uuid
-        )
+        .update(fragrance.id, fragrance.name, fragrance.image_uuid)
         .then(
           (this.isCardUpdateActive = false),
           this.resetFragrance(),
@@ -211,7 +196,7 @@ export default {
     },
     async createFragrance(fragrance) {
       await this.$api.fragrance
-        .create(fragrance.name, fragrance.description, fragrance.image_uuid)
+        .create(fragrance.name, fragrance.image_uuid)
         .then(
           (this.isCardCreateActive = false),
           this.resetFragrance(),
@@ -233,7 +218,6 @@ export default {
     resetFragrance() {
       this.fragrance.id = null;
       this.fragrance.name = "";
-      this.fragrance.description = "";
       this.fragrance.image_uuid = "";
     },
   },
