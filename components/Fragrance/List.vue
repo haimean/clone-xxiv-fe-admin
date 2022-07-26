@@ -36,7 +36,7 @@
             <div class="w-[80px]">{{ props.row.name }}</div>
           </b-table-column>
           <b-table-column field="imange" label="Image" sortable v-slot="props">
-            <div class="w-[80px]">{{ props.row.image_uuid }}</div>
+            <div class="w-[80px]">{{ props.row.image }}</div>
           </b-table-column>
           <b-table-column field="edit" v-slot="props" centered>
             <div class="w-[50px]">
@@ -107,7 +107,7 @@ export default {
       fragrance: {
         id: null,
         name: "",
-        image_uuid: "",
+        image: "",
       },
     };
   },
@@ -171,7 +171,7 @@ export default {
     },
     async updateFragrance(fragrance) {
       await this.$api.fragrance
-        .update(fragrance.id, fragrance.name, fragrance.image_uuid)
+        .update(fragrance)
         .then(
           (this.isCardUpdateActive = false),
           this.resetFragrance(),
@@ -196,7 +196,7 @@ export default {
     },
     async createFragrance(fragrance) {
       await this.$api.fragrance
-        .create(fragrance.name, fragrance.image_uuid)
+        .create(fragrance.name, fragrance.image)
         .then(
           (this.isCardCreateActive = false),
           this.resetFragrance(),
@@ -218,7 +218,7 @@ export default {
     resetFragrance() {
       this.fragrance.id = null;
       this.fragrance.name = "";
-      this.fragrance.image_uuid = "";
+      this.fragrance.image = "";
     },
   },
 };

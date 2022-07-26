@@ -7,17 +7,17 @@ export default class FragranceApi extends BaseApi {
   async delete(id: number) {
     return await this.axios.delete(`/fragrance/${id}`);
   }
-  async update(id: number, name: String, image_uuid: String) {
+  async update(fragrance: any) {
     return await this.axios.post(`/fragrance/update`, {
-      id,
-      name,
-      image_uuid,
+      id: fragrance.id,
+      name: fragrance.name,
+      image: fragrance.image,
     });
   }
-  async create(name: String, image_uuid: String) {
+  async create(fragrance: any) {
     return await this.axios.post(`/fragrance/create`, {
-      name,
-      image_uuid,
+      name: fragrance.name,
+      image: fragrance.image,
     });
   }
   async show(id: number) {

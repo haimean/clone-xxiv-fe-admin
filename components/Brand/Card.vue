@@ -89,7 +89,7 @@ export default {
     previewBackground(event) {
       var input = event.target;
       if (input.files && input.files[0]) {
-        this.brand.logo = input.file;
+        this.brand.background = input.file;
         var reader = new FileReader();
         reader.onload = (e) => {
           this.brand.background = e.target.result;
