@@ -19,6 +19,10 @@
           :paginated="true"
           :per-page="5"
           :current-page="1"
+          :show-detail-icon="true"
+          ref="table"
+          detailed
+          detail-key="id"
         >
           <b-table-column
             centered
@@ -43,9 +47,7 @@
           >
             <div class="w-[120px]">{{ props.row.description }}</div>
           </b-table-column>
-          <b-table-column field="imange" label="Image" sortable v-slot="props">
-            <div class="w-[80px]">{{ props.row.image_uuid }}</div>
-          </b-table-column>
+
           <b-table-column field="edit" v-slot="props" centered>
             <div class="w-[50px]">
               <b-button
@@ -73,6 +75,24 @@
           </b-table-column>
           <template #empty>
             <div class="has-text-centered">No records</div>
+          </template>
+          <template #detail="props">
+            <article class="media">
+              <figure class="media-left">
+                <div>
+                  <img :src="props.row.logo" class="w-[200px]" />
+                </div>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p class="is-size-3">
+                    <strong>{{ props.row.name }} </strong>
+                    <br />
+                  </p>
+                  {{ props.row.description }}
+                </div>
+              </div>
+            </article>
           </template>
         </b-table>
       </section>
@@ -115,13 +135,15 @@ export default {
         id: null,
         name: "minh",
         description: "",
-        image_uuid: "",
+        logo: [],
+        background: [],
       },
-      brandDefautl: {
+      brandDefault: {
         id: null,
         name: "",
         description: "",
-        image_uuid: "",
+        logo: [],
+        background: [],
       },
     };
   },
@@ -185,10 +207,10 @@ export default {
     },
     async updateBrand(brand) {
       await this.$api.brand
-        .update(brand.id, brand.name, brand.description, brand.image_uuid)
+        .update(brand)
         .then(
           (this.isCardUpdateActive = false),
-          (this.brand = this.brandDefautl),
+          (this.brand = this.brandDefault),
           this.getBrands(),
           this.$buefy.toast.open({
             message: `Update success`,
@@ -205,15 +227,15 @@ export default {
         });
     },
     openCardCreate() {
-      this.brand = this.brandDefautl;
+      this.brand = this.brandDefault;
       this.isCardCreateActive = true;
     },
     async createBrand() {
       await this.$api.brand
-        .create(this.brand.name, this.brand.description, this.brand.image_uuid)
+        .create(this.brand)
         .then(
           (this.isCardCreateActive = false),
-          (this.brand = this.brandDefautl),
+          (this.brand = this.brandDefault),
           this.getBrands(),
           this.$buefy.toast.open({
             message: `Create success`,

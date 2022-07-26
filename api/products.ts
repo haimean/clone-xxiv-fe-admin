@@ -2,7 +2,7 @@ import { BaseApi } from "~/core/api";
 
 export default class ProductApi extends BaseApi {
   async getAll() {
-    return await this.axios.get("/product/get-all", {});
+    return await this.axios.get("/product/get-all");
   }
   async delete(id: number) {
     return await this.axios.delete(`/product/${id}`);
@@ -19,7 +19,7 @@ export default class ProductApi extends BaseApi {
       day: product.day,
       description: product.description,
       id: product.id,
-      image_uuid: product.image_uuid,
+      image: product.image,
       last_scent: product.last_scent,
       main_scent: product.main_scent,
       middle_scent: product.middle_scent,
@@ -44,7 +44,7 @@ export default class ProductApi extends BaseApi {
       day: product.day,
       description: product.description,
       // id: product.id,
-      image_uuid: product.image_uuid,
+      image: product.image,
       last_scent: product.last_scent,
       main_scent: product.main_scent,
       middle_scent: product.middle_scent,

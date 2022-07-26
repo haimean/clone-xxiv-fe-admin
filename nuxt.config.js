@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "clone-xxiv-fe-admin",
+    title: "XXIV ADMIN",
     htmlAttrs: {
       lang: "en",
     },
@@ -16,8 +16,8 @@ export default {
     ],
     link: [
       {
-        rel: "icon",
-        type: "image/x-icon",
+        // rel: "icon",
+        // type: "image/x-icon",
         href: "https://xxivstore.com/wp-content/themes/yootheme/cache/XXIV-Logo-Web-da8bec8c.webp",
       },
     ],

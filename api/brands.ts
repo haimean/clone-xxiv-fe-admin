@@ -10,28 +10,21 @@ export default class BrandApi extends BaseApi {
   async delete(id: number) {
     return await this.axios.delete(`/brand/${id}`);
   }
-  async update(
-    id: number,
-    name: String,
-    description: String,
-    image_uuid: String
-  ) {
+  async update(brand: any) {
     return await this.axios.post(`/brand/update`, {
-      id,
-      name,
-      description,
-      image_uuid,
+      id: brand.id,
+      name: brand.name,
+      description: brand.description,
+      logo: brand.logo,
+      background: brand.background,
     });
   }
-  async create(
-    name: String,
-    description: String,
-    image_uuid: String
-  ) {
+  async create(brand: any) {
     return await this.axios.post(`/brand/create`, {
-      name,
-      description,
-      image_uuid,
+      name: brand.name,
+      description: brand.description,
+      logo: brand.logo,
+      background: brand.background,
     });
   }
   async show(id: number) {

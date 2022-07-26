@@ -16,11 +16,7 @@
           rules="required|email"
         >
           <b-field :type="{ 'is-danger': errors.length }" :message="errors[0]">
-            <b-input
-              v-model="email"
-              type="email"
-              placeholder="Email"
-            ></b-input>
+            <b-input v-model="email" type="email" placeholder="Email"></b-input>
           </b-field>
         </ValidationProvider>
         <ValidationProvider
@@ -39,7 +35,9 @@
           </b-field>
         </ValidationProvider>
         <div style="text-align: end">
-          <nuxt-link to="/forgot-password" class="signup">Forgot password </nuxt-link>
+          <nuxt-link to="/forgot-password" class="signup"
+            >Forgot password
+          </nuxt-link>
         </div>
         <b-button
           class="mt-5 pr-5 pl-5 mb-3 is-flex login-btn"

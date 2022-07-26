@@ -61,7 +61,8 @@
             <div class="w-[120px]">{{ props.row.description }}</div>
           </b-table-column>
           <b-table-column field="imange" label="Image" v-slot="props">
-            <div class="w-[80px]">{{ props.row.image_uuid }}</div>
+            <!-- <div class="w-[80px]">{{ props.row.image }}</div> -->
+            <img height="10px" :src="props.row.image" />
           </b-table-column>
           <b-table-column field="edit" v-slot="props" centered>
             <div class="w-[50px]">
@@ -146,7 +147,7 @@ export default {
         description: "",
         fall: null,
         id: null,
-        image_uuid: "",
+        image: [],
         last_scent: [],
         main_scent: [],
         middle_scent: [],
@@ -166,13 +167,13 @@ export default {
   },
 
   mounted() {
-    this.getProdcuts();
+    this.getProducts();
     this.getFragrances();
     this.getBrands();
     this.getCapacities();
   },
   methods: {
-    async getProdcuts() {
+    async getProducts() {
       try {
         await this.$api.product
           .getAll()
@@ -278,7 +279,7 @@ export default {
       await this.$api.product
         .delete(id)
         .then(
-          this.getProdcuts(),
+          this.getProducts(),
           this.$buefy.toast.open({
             message: `Delete success`,
             type: "is-success",
@@ -303,7 +304,7 @@ export default {
         .then(
           (this.isCardUpdateActive = false),
           this.resetProduct(),
-          this.getProdcuts(),
+          this.getProducts(),
           this.$buefy.toast.open({
             message: `Update success`,
             type: "is-success",
@@ -328,7 +329,7 @@ export default {
         .then(
           (this.isCardCreateActive = false),
           this.resetProduct(),
-          this.getProdcuts(),
+          this.getProducts(),
           this.$buefy.toast.open({
             message: `Create success`,
             type: "is-info",

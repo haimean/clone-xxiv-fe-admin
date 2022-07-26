@@ -18,9 +18,44 @@
           v-model="brand.description"
         ></b-input>
       </b-field>
-      <b-field label="Image">
-        <b-input v-model="brand.image_uuid"></b-input
-      ></b-field>
+      <div class="columns">
+        <div class="column">
+          <b-field label="Logo" :class="{ 'has-name': !brand.logo }">
+            <div>
+              <div class="file-upload-form">
+                <input
+                  type="file"
+                  @change="previewLogo"
+                  accept="image/png, image/jpg, image/jpeg"
+                />
+              </div>
+              <div class="image-preview" v-if="brand.logo">
+                <img class="preview" :src="brand.logo" />
+              </div>
+            </div>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field
+            label="Background"
+            :class="{ 'has-name': !brand.background }"
+          >
+            <div>
+              <div class="file-upload-form">
+                <input
+                  type="file"
+                  @change="previewBackground"
+                  accept="image/png, image/jpg, image/jpeg"
+                />
+              </div>
+              <div class="image-preview" v-if="brand.background">
+                <img class="preview" :src="brand.background" />
+              </div>
+            </div>
+          </b-field>
+        </div>
+      </div>
+
       <b-button
         class="is-info"
         size="is-medium"
@@ -40,6 +75,28 @@ export default {
   },
   props: { title: String, brand: Object, button: String },
   methods: {
+    previewLogo(event) {
+      var input = event.target;
+      if (input.files && input.files[0]) {
+        this.brand.logo = input.file;
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.brand.logo = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    previewBackground(event) {
+      var input = event.target;
+      if (input.files && input.files[0]) {
+        this.brand.logo = input.file;
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.brand.background = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
     confirmUpdate() {
       this.$buefy.dialog.confirm({
         message: `Do you want  ${this.title}`,

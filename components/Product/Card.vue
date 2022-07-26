@@ -50,18 +50,20 @@
             </ValidationProvider>
           </div>
           <div class="column is-one-third">
-            up image
-            <!-- <b-field label="Image" :class="{ 'has-name': !!data.image_uuid }">
-              <b-upload v-model="data.image_uuid" class="file-label">
-                <span class="file-cta">
-                  <b-icon class="file-icon" icon="upload"></b-icon>
-                  <span class="file-label">Image</span>
-                </span>
-                <span class="file-name" v-if="data.image_uuid">
-                  {{ data.image_uuid }}
-                </span>
-              </b-upload>
-            </b-field> -->
+            <b-field label="Image" :class="{ 'has-name': !data.image }">
+              <div>
+                <div class="file-upload-form">
+                  <input
+                    type="file"
+                    @change="previewImage"
+                    accept="image/png, image/jpg, image/jpeg"
+                  />
+                </div>
+                <div class="image-preview" v-if="data.image">
+                  <img class="preview" :src="data.image" />
+                </div>
+              </div>
+            </b-field>
           </div>
         </div>
         <div class="columns">
@@ -470,6 +472,17 @@ export default {
     };
   },
   methods: {
+    previewImage(event) {
+      var input = event.target;
+      if (input.files && input.files[0]) {
+        this.data.image = input.file;
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.data.image = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
     changeCapacity() {
       this.capacityQuantity.price = 0;
       this.capacityQuantity.number = 0;
